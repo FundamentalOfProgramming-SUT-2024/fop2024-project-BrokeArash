@@ -1,5 +1,27 @@
 #include <ncurses.h>
 #include <unistd.h>
+#include <locale.h>
+#include <wchar.h>
+
+
+
+void fborder(int margin_top, int margin_left, int margin_bottom, int margin_right){
+
+    int max_y, max_x; 
+    getmaxyx(stdscr, max_y, max_x);
+
+    for (int y = margin_top; y < max_y - margin_bottom; y++) {
+        for (int x = margin_left; x < max_x - margin_right; x++) {
+            if (y == margin_top || y == max_y - margin_bottom - 1) {
+                mvprintw(y, x,"%s", "--");
+            } else if (x == margin_left || x == max_x - margin_right - 1) {
+                mvprintw(y, x,"%s", "|");  
+            }
+        }
+    }
+}
+
+
 
 
 void drawlogo() {
@@ -37,6 +59,9 @@ void drawlogo() {
     NULL
     };
 
+
+
+
     const char *name2[] = {
     "                                          d8b      ",
     "                                          ?88      ",
@@ -48,6 +73,9 @@ void drawlogo() {
     NULL
     };
 
+    fborder(2, 4, 2, 4);
+
+    
     int max_y, max_x; 
     getmaxyx(stdscr, max_y, max_x);
 
@@ -56,21 +84,8 @@ void drawlogo() {
     int margin_bottom = 2;
     int margin_right = 4;
 
-    for (int y = margin_top; y < max_y - margin_bottom; y++) {
-        for (int x = margin_left; x < max_x - margin_right; x++) {
-            if (y == margin_top || y == max_y - margin_bottom - 1) {
-                mvprintw(y, x,"%s", "--");
-            } else if (x == margin_left || x == max_x - margin_right - 1) {
-                mvprintw(y, x,"%s", "|");  
-            }
-        }
-    }
-
-    
-
-
     for (int i = 0; logo[i] != NULL; i++) {
-        mvprintw(i + max_y/4 + 2, margin_left + max_x/4.2,"%s", logo[i]);
+        mvprintw(i + max_y/4 + 4, margin_left + max_x/4.2,"%s", logo[i]);
     }
     
     for (int i = 0; name1[i] != NULL; i++) {
@@ -118,7 +133,176 @@ void drawlogo() {
     clear();
 }
 
+void fmenu(){
+
+
+    clear();
+    refresh();
+
+    fborder(10, 40, 10, 40); // Draw the border
+    int max_y, max_x; 
+    getmaxyx(stdscr, max_y, max_x); // Get screen dimensions
+
+    int margin_top = 10;
+    int margin_left = 40;
+    int margin_bottom = 10;
+    int margin_right = 40;
+
+    const char* logo1[] = {
+    "      _,.",
+    "    ,` -.)",
+    "   ( _/-\\\\-._",
+    "  /,|`--._,-^|            ,",
+    "  \\_| |`-._/||          ,'|",
+    "    |  `-, / |         /  /",
+    "    |     || |        /  /",
+    "     `r-._||/   __   /  /",
+    " __,-<_     )`-/  `./  /",
+    "'  \\   `---'   \\   /  /",
+    "    |           |./  /",
+    "    /           //  /",
+    "\\_/' \\         |/  /",
+    " |    |   _,^-'/  /",
+    " |    , ``  (\\/  /_",
+    "  \\,.->._    \\X-=/^",
+    "  (  /   `-._//^`",
+    "   `Y-.____(__}",
+    "    |     {__)",
+    "          ()",
+    NULL
+    };
+
+    const char* logo2[] = {
+
+    "                  _,-'|",
+    "               ,-'._  |",
+    "     .||,      |####\\ |",
+    "    \\.`',/     \\####| |",
+    "    = ,. =      |###| |",
+    "    / || \\    ,-'\\#/,'`.",
+    "      ||     ,'   `,,. `.",
+    "      ,|____,' , ,;' \\| |",
+    "     (3|\\    _/|/'   _| |",
+    "  ||/,-''  | >-'' _,\\\\",
+    "      ||'      ==\\ ,-'  ,'",
+    "      ||       |  V \\ ,|",
+    "      ||       |    |` |",
+    "      ||       |    |   \\",
+    "      ||       |    \\    \\",
+    "      ||       |     |    \\",
+    "      ||       |      \\_,-'",
+    "      ||       |___,,--'')_\\",
+    "      ||         |_|   ccc/",
+    "      ||        ccc/",
+    "      ||                hjm",
+        NULL
+    };
+
+    // Menu options
+    const char *menu_options[] = {
+        "1. NEW GAME",
+        "2. LOAD GAME",
+        "3. SETTINGS",
+        "4. EXIT",
+        NULL
+    };
+
+    int n_options = sizeof(menu_options) / sizeof(menu_options[0]) - 1; // Number of menu options
+    int highlight = 0; // Start with the first option highlighted
+    int choice = 0;
+    int key;
+
+    // Print the menu options
+    for (int i = 0; i < n_options; i++) {
+        if (i == highlight) {
+            attron(A_REVERSE);  // Highlight the current option
+            mvprintw(margin_top + 5 + i * 5, margin_left + 40, "%s", menu_options[i]);
+            attroff(A_REVERSE);
+        } else {
+            mvprintw(margin_top + 5 + i * 5, margin_left + 40, "%s", menu_options[i]);
+        }
+    }
+
+    // Main loop to handle menu navigation
+    while (1) {
+        for (int i = 0; logo1[i] != NULL; i++) {
+            mvprintw(i + margin_bottom + 3, margin_left + + 5,"%s", logo1[i]);
+        }
+
+
+        for (int i = 0; logo2[i] != NULL; i++) {
+            mvprintw(i + margin_bottom + 3, margin_left + + 57,"%s", logo2[i]);
+        }
+        key = getch();  // Get user input
+
+        switch (key) {
+            case KEY_UP:
+                if (highlight == 0) {
+                    highlight = n_options - 1;  // Wrap to the last option
+                } else {
+                    highlight--;  // Move up
+                }
+                break;
+            case KEY_DOWN:
+                if (highlight == n_options - 1) {
+                    highlight = 0;  // Wrap to the first option
+                } else {
+                    highlight++;  // Move down
+                }
+                break;
+            case 10:  // Enter key
+                choice = highlight;
+                break;
+        }
+
+        // Redraw the menu to reflect the updated selection
+        usleep(300000);
+        clear();
+        fborder(10, 40, 10, 40);
+        for (int i = 0; i < n_options; i++) {
+            if (i == highlight) {
+                attron(A_REVERSE);
+                mvprintw(margin_top + 5 + i * 5, margin_left + 40, "%s", menu_options[i]);
+                attroff(A_REVERSE);
+            } else {
+                mvprintw(margin_top + 5 + i * 5, margin_left + 40, "%s", menu_options[i]);
+            }
+        }
+
+        if (choice != 0) {
+            break;  // Exit the loop when the user selects an option
+        }
+    }
+
+    // Handle the chosen option
+    switch (choice) {
+        case 0:
+            mvprintw(margin_top + 30, margin_left + 40, "Starting NEW GAME...");
+            usleep(500000);
+            break;
+        case 1:
+            mvprintw(margin_top + 30, margin_left + 40, "Loading GAME...");
+            usleep(500000);
+            break;
+        case 2:
+            mvprintw(margin_top + 30, margin_left + 40, "Opening SETTINGS...");
+            usleep(500000);
+            break;
+        case 3:
+            mvprintw(margin_top + 30, margin_left + 40, "Exiting...");
+            usleep(500000);
+            break;
+    }
+
+    refresh();
+    getch();  // Wait for the user to see the result before exiting
+}
+
+
+
 int main() {
+
+    setlocale(LC_CTYPE, "");
 
     initscr();
     raw();
@@ -134,6 +318,7 @@ int main() {
     }
 
     drawlogo();
+    fmenu();
 
     endwin();
     return 0;
