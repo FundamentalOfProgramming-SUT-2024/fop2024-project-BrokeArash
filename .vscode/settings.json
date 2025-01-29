@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "sdl_mixer.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

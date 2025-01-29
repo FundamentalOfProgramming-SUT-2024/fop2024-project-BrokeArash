@@ -60,7 +60,7 @@ int playerMove(Position* newPosition, Player* user, char** level) {
         
         sprintf(buffer, "%c", level[user->position.y][user->position.x]);
 
-        mvprintw(user->position.y, user->position.x, ".");
+        mvprintw(user->position.y, user->position.x, buffer);
         user->position.y = newPosition->y;
         user->position.x = newPosition->x;
         mvprintw(user->position.y, user->position.x, "H");
