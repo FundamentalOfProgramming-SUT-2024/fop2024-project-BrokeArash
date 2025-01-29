@@ -4,11 +4,14 @@
 #include <unistd.h>
 #include <time.h>
 
+#define MAX_ROOM_WIDTH 50
+#define MAX_ROOM_HEIGHT 20
+#define NUM_ROOMS 6
+
 
 typedef struct {
     int x, y, width, height;
-    int character_x, character_y;
-    int door_x[2], door_y[2];
+    char map[300][300];
 } Room;
 
 typedef struct{
@@ -243,154 +246,59 @@ void menu(){
     
 }
 
-void generate_random_map(WINDOW* win, int height, int width, unsigned int seed, Room room_details[6], int i, int room_index, WINDOW* rooms[6], Character character) {
-    srand(seed);
-    room_details[i].x = rand() % (width / 3);   // Room position
-    room_details[i].y = rand() % (height / 3);  // Room position
-    room_details[i].width = rand() % 10 + 6;    // Room dimensions
-    room_details[i].height = rand() % 6 + 4;
-
-    // Ensure room fits within window
-    room_details[i].width = (room_details[i].x + room_details[i].width > width) ? (width - room_details[i].x - 1) : room_details[i].width;
-    room_details[i].height = (room_details[i].y + room_details[i].height > height) ? (height - room_details[i].y - 1) : room_details[i].height;
-
-    // Draw the room
-    for (int y = room_details[i].y; y < room_details[i].y + room_details[i].height; y++) {
-        for (int x = room_details[i].x; x < room_details[i].x + room_details[i].width; x++) {
-            if (y == room_details[i].y || y == room_details[i].y + room_details[i].height - 1) {
-                mvwaddch(win, y, x, '-');  // Top/Bottom walls
-            } else if (x == room_details[i].x || x == room_details[i].x + room_details[i].width - 1) {
-                mvwaddch(win, y, x, '|');  // Side walls
-            } else {
-                mvwaddch(win, y, x, '.');  // Empty floor
+void printRoom(Room room_details[NUM_ROOMS]) {
+    for (int i = 0; i < NUM_ROOMS; i++) {
+        // Print the map of each room
+        for (int j = room_details[i].y; j < room_details[i].y + room_details[i].height; j++) {
+            for (int k = room_details[i].x; k < room_details[i].x + room_details[i].width; k++) {
+                if (j < LINES && k < COLS) {  // Ensure we stay within screen bounds
+                    int room_j = j - room_details[i].y;  // Map to local room coordinates
+                    int room_k = k - room_details[i].x;  // Map to local room coordinates
+                    mvprintw(j, k, "%c", room_details[i].map[room_j][room_k]);
+                }
             }
         }
     }
-
-    // Place the character 'H' randomly within the room's floor area
-    if (i == room_index) {
-        // Make sure the 'H' is placed within the valid floor space (not on walls)
-        character.x = room_details[i].x + 1 + rand() % (room_details[i].width - 2);  // Random x within the floor area
-        character.y = room_details[i].y + 1 + rand() % (room_details[i].height - 2); // Random y within the floor area
-
-        // Place 'H' on the map
-        mvwaddch(rooms[room_index], character.y, character.x, 'H');
-    }
-
-
-    // Add doors
-    
-    switch(i){
-        case 0:
-            room_details[i].door_y[0] = room_details[i].y+1 + rand()% (room_details[i].height-2);
-            room_details[i].door_x[0] = room_details[i].x+room_details[i].width-1;
-            room_details[i].door_y[1] = room_details[i].y + room_details[i].height-1;
-            room_details[i].door_x[1] = room_details[i].x + 1 +rand()% (room_details[i].width-2);
-
-            mvwaddch(win, room_details[i].door_y[0], room_details[i].door_x[0], '+'); //right
-            mvwaddch(win, room_details[i].door_y[1], room_details[i].door_x[1], '+'); //bottom
-            break;
-        case 1:
-            room_details[i].door_y[1] = room_details[i].y + 1 + rand()% (room_details[i].height-2);
-            room_details[i].door_x[1] = room_details[i].x+room_details[i].width-1;
-            room_details[i].door_y[0] = room_details[i].y + 1 + rand()% (room_details[i].height-2);
-            room_details[i].door_x[0] = room_details[i].x;
-
-            mvwaddch(win, room_details[i].door_y[1], room_details[i].door_x[1], '+'); //right
-            mvwaddch(win, room_details[i].door_y[0], room_details[i].door_x[0], '+'); //left
-            break;
-        case 2:
-            room_details[i].door_y[0] = room_details[i].y + 1 + rand()% (room_details[i].height-2);
-            room_details[i].door_x[0] = room_details[i].x;
-            room_details[i].door_y[1] = room_details[i].y + room_details[i].height-1;
-            room_details[i].door_x[1] = room_details[i].x + 1 +rand()% (room_details[i].width-2);
-
-            mvwaddch(win, room_details[i].door_y[0], room_details[i].door_x[0], '+'); //left
-            mvwaddch(win, room_details[i].door_y[1], room_details[i].door_x[1], '+'); //bottom
-            break;
-        case 3:
-            room_details[i].door_y[1] = room_details[i].y + 1 + rand()% (room_details[i].height-2);
-            room_details[i].door_x[1] = room_details[i].x+room_details[i].width-1;
-            room_details[i].door_y[0] = room_details[i].y;
-            room_details[i].door_x[0] = room_details[i].x + 1 +rand()% (room_details[i].width-2);
-
-            mvwaddch(win, room_details[i].door_y[1], room_details[i].door_x[1], '+'); //right
-            mvwaddch(win, room_details[i].door_y[0], room_details[i].door_x[0], '+'); //top
-            break;
-        case 4:
-            room_details[i].door_y[0] = room_details[i].y + 1 + rand()% (room_details[i].height-2);
-            room_details[i].door_x[0] = room_details[i].x+room_details[i].width-1;
-            room_details[i].door_y[1] = room_details[i].y + 1 + rand()% (room_details[i].height-2);
-            room_details[i].door_x[1] = room_details[i].x;
-
-            mvwaddch(win, room_details[i].door_y[0], room_details[i].door_x[0], '+'); //right
-            mvwaddch(win, room_details[i].door_y[1], room_details[i].door_x[1], '+'); //left
-            break;
-        case 5:
-            room_details[i].door_y[0] = room_details[i].y + 1 + rand()% (room_details[i].height-2);
-            room_details[i].door_x[0] = room_details[i].x;
-            room_details[i].door_y[1] = room_details[i].y;
-            room_details[i].door_x[1] = room_details[i].x + 1 + rand()% (room_details[i].width-2);
-
-            mvwaddch(win, room_details[i].door_y[0], room_details[i].door_x[0], '+'); //left
-            mvwaddch(win, room_details[i].door_y[1], room_details[i].door_x[1], '+'); //top
-            break;
-    }
-
-    wrefresh(win);
 }
 
-void print_corridor(){
-
-}
-
-
-
-void main_game(){
+void main_game() {
+    clear();
     noecho();
     srand(time(NULL));
-    int max_y, max_x; 
-    getmaxyx(stdscr, max_y, max_x);
-    WINDOW* win1 = newwin(max_y/2-4, max_x/3, 4, 0);
-    WINDOW* win2 = newwin(max_y/2-4, max_x/3, 4, max_x/3);
-    WINDOW* win3 = newwin(max_y/2-4, max_x/3, 4, 2*max_x/3);
-    WINDOW* win4 = newwin(max_y/2, max_x/3, max_y/2, 0);
-    WINDOW* win5 = newwin(max_y/2, max_x/3, max_y/2, max_x/3);
-    WINDOW* win6 = newwin(max_y/2, max_x/3, max_y/2, 2*max_x/3);
+    int max_y, max_x;
+    getmaxyx(stdscr, max_y, max_x);  // Get terminal size
 
-    WINDOW* rooms[6] = {win1, win2, win3, win4, win5, win6};
-    Room room_details[6];
+    Room room_details[NUM_ROOMS];
     Character character;
-    int room_index = rand() % 6;
-    for(int i = 0; i < 6; i++){
-        int room_width = max_x / 3;
-        int room_height = max_y / 2;
-        room_details[i].x = i % 3 * room_width;
-        room_details[i].y = i / 3 * room_height;
-        room_details[i].width = room_width;
-        room_details[i].height = room_height;
-        generate_random_map(rooms[i], room_height, room_width, (unsigned int)time(NULL) + i + 1, room_details, i, room_index, rooms, character);   
-    }
+    
+    for (int i = 0; i < NUM_ROOMS; i++) {
+        // Generate random room size and position
+        room_details[i].width = rand() % (max_x / 3);
+        room_details[i].height = rand() % (max_y / 2);
+        room_details[i].x = (i * max_x / 3) + rand() % (max_x / 3 - room_details[i].width);
+        room_details[i].y = ((i % 3) * max_y / 2) + rand() % (max_y / 2 - room_details[i].height);
 
-
-    wrefresh(win1); wrefresh(win2); wrefresh(win3); wrefresh(win4); wrefresh(win5); wrefresh(win6);
-
-    while(1){
-
-
-        char move_button = getch();
-
-        if(move_button == 'h' || move_button == 'H'){
-            if(room_details[room_index].character_x-1 == room_details[room_index].x || (room_details[room_index].character_x-1 == room_details[room_index].door_x[0] && room_details[room_index].door_x[0] == room_details[room_index].y) || (room_details[room_index].character_x-1 == room_details[room_index].door_x[1] && room_details[room_index].door_x[1] == room_details[room_index].y)){
-
+        // Fill the room map with walls and floor
+        for (int j = 0; j < room_details[i].height; j++) {
+            for (int k = 0; k < room_details[i].width; k++) {
+                if (j == 0 || j == room_details[i].height - 1)
+                    room_details[i].map[j][k] = '-';  // Top and bottom walls
+                else if (k == 0 || k == room_details[i].width - 1)
+                    room_details[i].map[j][k] = '|';  // Left and right walls
+                else
+                    room_details[i].map[j][k] = '.';  // Floor
             }
         }
-        
-        if(getch() == 10){  // If Enter key is pressed, exit
-            break;
-        }
+    }
+    while(1){
+        printRoom(room_details);  // Print all the rooms to the screen
+
+        refresh();  // Refresh the screen to show the changes
+        getch();    // Wait for user input before closing
     }
 }
+
+
 
 void game_menu(){
 
