@@ -26,6 +26,9 @@ typedef struct Player {
     Position* position;
     int health;
     int attack;
+    int gold;
+    int maxHealth;
+    int exp;
 } Player;
 
 typedef struct Monster{
@@ -56,9 +59,10 @@ Player* playerSetup();
 Position* handleInput(int input, Player* user);
 int checkPosition(Position* newPosition, Level* level);
 int playerMove(Position* newPosition, Player* user, char** level);
+int placePlayer(Room** rooms, Player* user);
 
-Level* createLevel();
-Room* createRoom(int x, int y, int height, int width);
+Level* createLevel(int level);
+Room* createRoom(int grid);
 int drawRoom(Room *room);
 int connectDoors(Position* doorOne, Position* doorTwo);
 char** saveLevelPositions();

@@ -10,6 +10,7 @@ Level* createLevel(int level){
     newLevel->tiles = saveLevelPositions();
 
     newLevel->user = playerSetup();
+    placePlayer(newLevel->rooms, newLevel->user);
 
     addMonsters(newLevel);
 
@@ -22,17 +23,15 @@ Room** roomSetUp() {
     rooms = malloc(sizeof(Room)*6);
 
 
+    for(int x = 0; x < 6; x++){
+        rooms[x] = createRoom(x);
+        drawRoom(rooms[x]);
+    }
     
-    rooms[0] = createRoom(13, 13, 8, 12);
-    drawRoom(rooms[0]);
-    rooms[1] = createRoom(40, 2, 6, 8);
-    drawRoom(rooms[1]);
-    rooms[2] = createRoom(40, 10, 6, 12);
-    drawRoom(rooms[2]);
     
 
-    connectDoors(rooms[0]->doors[3], rooms[2]->doors[1]);
-    connectDoors(rooms[1]->doors[2], rooms[0]->doors[0]);
+    //connectDoors(rooms[0]->doors[3], rooms[2]->doors[1]);
+    //connectDoors(rooms[1]->doors[2], rooms[0]->doors[0]);
 
     return rooms;
 }

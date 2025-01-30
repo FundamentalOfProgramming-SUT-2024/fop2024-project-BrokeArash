@@ -8,13 +8,23 @@ Player* playerSetup() {
     newPlayer->position->y= 14;
     newPlayer->health = 20;
     newPlayer->attack = 1;
-
-    mvprintw(newPlayer->position->y, newPlayer->position->x, "H");
-    move(newPlayer->position->y, newPlayer->position->x);
-    refresh();
+    newPlayer->gold = 0;
+    newPlayer->exp = 0;
+    newPlayer->maxHealth = 20;
 
     return newPlayer;
 }
+
+int placePlayer(Room** rooms, Player* user){
+
+    user->position->x = rooms[3]->position.x + 1;
+    user->position->y = rooms[3]->position.y + 1; 
+
+    mvprintw(user->position->y, user->position->x, "H");
+    move(user->position->y, user->position->x);
+    
+}
+
 
 
 Position* handleInput(int input, Player* user) {

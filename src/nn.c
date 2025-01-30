@@ -12,13 +12,13 @@ int main() {
     screenSetUp();
     
     level = createLevel(1);
-    
+    printGameHub(level);
 
     
 
     while ((ch = getch()) != 'q') {
 
-
+        printGameHub(level);
         newPosition = handleInput(ch, level->user);
         checkPosition(newPosition, level);
         moveMonsters(level);
@@ -30,17 +30,6 @@ int main() {
 
     return 0;
 }
-
-int screenSetUp() {
-    initscr();
-    noecho();
-    curs_set(0);
-    refresh();
-    srand(time(NULL));
-
-    return 1;
-}
-
 
 
 
