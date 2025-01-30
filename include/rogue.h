@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+
 typedef struct Level{
     char** tiles;
     int level;
@@ -20,6 +22,16 @@ typedef struct Position{
     int x,y;
     //TILE_TYPE tile;
 }Position;
+
+
+typedef struct Door{
+
+    Position position;
+    int connected;
+
+
+}Door;
+
 
 typedef struct Player {
 
@@ -48,23 +60,27 @@ typedef struct Monster{
 typedef struct Room{
     int height, width;
     Position position;
-    Position** doors;
+    Door** doors;
+    int numberOfDoors;
     //Monster** monsters;
     //Item ** items
 }Room;
 
+extern int MAX_HEIGHT;
+extern int MAX_WIDTH;
+
 int screenSetUp();
 Room** roomSetUp();
-Player* playerSetup();
+Player* playerSetUp();
 Position* handleInput(int input, Player* user);
 int checkPosition(Position* newPosition, Level* level);
 int playerMove(Position* newPosition, Player* user, char** level);
 int placePlayer(Room** rooms, Player* user);
 
 Level* createLevel(int level);
-Room* createRoom(int grid);
+Room* createRoom(int grid, int numberOfDoors);
 int drawRoom(Room *room);
-int connectDoors(Position* doorOne, Position* doorTwo);
+void connectDoors(Level* level);
 char** saveLevelPositions();
 
 

@@ -1,9 +1,13 @@
 #include "rogue.h"
 
+int MAX_HEIGHT = 25;
+int MAX_WIDTH = 100;
 
 int main() {
     
     char ch;
+    
+
     Position* newPosition;
 
     Level* level;
