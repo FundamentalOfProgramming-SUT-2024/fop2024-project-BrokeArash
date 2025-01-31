@@ -61,12 +61,12 @@ Room* createRoom(int grid, int numberOfDoors){
     newRoom->doors[1]->position.x = newRoom->position.x;
 
     /* bottom door */
-    newRoom->doors[2]->position.x = rand() % (newRoom->width - 2) + newRoom->position.x + 1;
-    newRoom->doors[2]->position.y = newRoom->position.y + newRoom->height - 1;
+    // newRoom->doors[2]->position.x = rand() % (newRoom->width - 2) + newRoom->position.x + 1;
+    // newRoom->doors[2]->position.y = newRoom->position.y + newRoom->height - 1;
 
-    /* right door */
-    newRoom->doors[3]->position.y = rand() % (newRoom->height - 2) + newRoom->position.y + 1;
-    newRoom->doors[3]->position.x = newRoom->position.x + newRoom->width - 1;
+    // /* right door */
+    // newRoom->doors[3]->position.y = rand() % (newRoom->height - 2) + newRoom->position.y + 1;
+    // newRoom->doors[3]->position.x = newRoom->position.x + newRoom->width - 1;
 
     return newRoom;
 }
@@ -100,8 +100,8 @@ int drawRoom(Room* room){
     /* draw doors */
     mvprintw(room->doors[0]->position.y, room->doors[0]->position.x, "+");
     mvprintw(room->doors[1]->position.y, room->doors[1]->position.x, "+");
-    mvprintw(room->doors[2]->position.y, room->doors[2]->position.x, "+");
-    mvprintw(room->doors[3]->position.y, room->doors[3]->position.x, "+");
+    // mvprintw(room->doors[2]->position.y, room->doors[2]->position.x, "+");
+    // mvprintw(room->doors[3]->position.y, room->doors[3]->position.x, "+");
 
     return 1;
 }

@@ -53,7 +53,7 @@ Room** roomsSetUp(){
 
     for (int x = 0; x < 6; x++){
 
-        rooms[x] = createRoom(x, 4);
+        rooms[x] = createRoom(x, 2);
         drawRoom(rooms[x]);
     }
     //connectDoors(rooms[0]->doors[3], rooms[1]->doors[1]);
@@ -164,7 +164,7 @@ void addMonsters(Level* level){
     for (int x = 0; x < level->numberOfRooms; x++){
 
         if ((rand() % 2) == 0){
-            
+
             level->monsters[level->numberOfMonsters] = selectMonster(level->level);
             setStartingPosition(level->monsters[level->numberOfMonsters], level->rooms[x]);
             level->numberOfMonsters++;
