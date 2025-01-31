@@ -31,30 +31,54 @@ Position* handleInput(int input, Player * user){
     switch (input){
 
         /* move up */
-        case 'w':
-        case 'W':
+        case 'j':
+        case 'J':
             newPosition->y = user->position->y - 1;
             newPosition->x = user->position->x;
             break;
 
         /* move down */
-        case 's':
-        case 'S':
+        case 'k':
+        case 'K':
             newPosition->y = user->position->y + 1;
             newPosition->x = user->position->x;
             break;
 
         /* move left */
-        case 'a':
-        case 'A':
+        case 'h':
+        case 'H':
             newPosition->y = user->position->y;
             newPosition->x = user->position->x - 1;
             break;
 
         /* move right */
-        case 'd':
-        case 'D':
+        case 'l':
+        case 'L':
             newPosition->y = user->position->y;
+            newPosition->x = user->position->x + 1;
+            break;
+        /* move NW*/
+        case 'y':
+        case 'Y':
+            newPosition->y = user->position->y - 1;
+            newPosition->x = user->position->x - 1;
+            break;
+        /* move NE*/
+        case 'u':
+        case 'U':
+            newPosition->y = user->position->y - 1;
+            newPosition->x = user->position->x + 1;
+            break;
+        /*move SW*/
+        case 'b':
+        case 'B':
+            newPosition->y = user->position->y + 1;
+            newPosition->x = user->position->x - 1;
+            break;
+        /*move SE*/
+        case 'n':
+        case 'N':
+            newPosition->y = user->position->y + 1;
             newPosition->x = user->position->x + 1;
             break;
 
