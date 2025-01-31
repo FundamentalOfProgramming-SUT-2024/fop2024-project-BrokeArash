@@ -11,14 +11,14 @@ Player* playerSetUp(){
     newPlayer->position = malloc(sizeof(Position));
     newPlayer->items = malloc(sizeof(Item*));
 
-    newPlayer->health = 10;
-    newPlayer->attack = 1;
+    newPlayer->health = 100;
+    newPlayer->attack = 5;
     newPlayer->gold = 0;
     newPlayer->exp = 0;
     newPlayer->maxHealth = 100;
     newPlayer->numberItems = 0;
 
-    newPlayer->items[newPlayer->numberItems++] = createSword(1, 20);  
+    newPlayer->items[newPlayer->numberItems++] = createMace(5, 20);  
 
     return newPlayer;
 }

@@ -20,6 +20,6 @@ typedef struct Item{
 
 }Item;
 
-Item* createSword(int attack, int health);
+Item* createMace(int attack, int health);
 
 #endif
