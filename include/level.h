@@ -8,32 +8,31 @@
 #include "room.h"
 
 
+typedef struct Level{
 
-
-typedef struct Level
-{
-    char ** tiles;
+    char** tiles;
     int level;
     int numberOfRooms;
-    struct Room ** rooms;
-    struct Monster ** monsters;
+    struct Room** rooms;
+    struct Monster** monsters;
     int numberOfMonsters;
-    struct Player * user;
+    struct Player* user;
+
 } Level;
 
-void drawLevel(Level * level);
+void drawLevel(Level* level);
 
-void addMonsters(Level * level);
-void moveMonsters(Level * level);
+void addMonsters(Level* level);
+void moveMonsters(Level* level);
 
 
 /* level/map functions */
-Level * createLevel();
-Room ** roomsSetUp();
-char ** saveLevelPositions();
-void connectDoors(Level * level);
+Level* createLevel();
+Room** roomsSetUp();
+char** saveLevelPositions();
+void connectDoors(Level* level);
 
-void checkPostion(Position * newPosition, Level * level);
+void checkPostion(Position* newPosition, Level* level);
 
 
 #endif

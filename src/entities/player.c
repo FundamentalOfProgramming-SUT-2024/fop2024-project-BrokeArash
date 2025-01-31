@@ -2,14 +2,14 @@
 #include "player.h"
 
 
-Player * playerSetUp(){
+Player* playerSetUp(){
 
     int MAX_ITEMS = 25;
 
-    Player * newPlayer;
+    Player* newPlayer;
     newPlayer = malloc(sizeof(Player));
     newPlayer->position = malloc(sizeof(Position));
-    newPlayer->items = malloc(sizeof(Item *));
+    newPlayer->items = malloc(sizeof(Item*));
 
     newPlayer->health = 20;
     newPlayer->attack = 1;
@@ -24,12 +24,12 @@ Player * playerSetUp(){
 }
 
 
-Position * handleInput(int input, Player * user)
-{
-    Position * newPosition;
+Position* handleInput(int input, Player * user){
+
+    Position* newPosition;
     newPosition = malloc(sizeof(Position));
-    switch (input)
-    {
+    switch (input){
+
         /* move up */
         case 'w':
         case 'W':
@@ -60,22 +60,20 @@ Position * handleInput(int input, Player * user)
 
         default:
             break;
-
     }
 
     return newPosition;
-
 }
 
 
-void playerMove(Position * newPosition, Player * user, char ** level)
-{
+void playerMove(Position* newPosition, Player* user, char** level){
+
     user->position->y = newPosition->y;
     user->position->x = newPosition->x;
 }
 
-void drawPlayer(Player * player)
-{
-    mvprintw(player->position->y, player->position->x, "@");
+void drawPlayer(Player* player){
+
+    mvprintw(player->position->y, player->position->x, "H");
     move(player->position->y, player->position->x);
 }

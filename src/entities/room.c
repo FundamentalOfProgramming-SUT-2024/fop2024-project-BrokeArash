@@ -1,15 +1,14 @@
 #include "rogue.h"
 #include "room.h"
 
-Room * createRoom(int grid, int numberOfDoors)
-{
-    int i;
-    Room * newRoom;
+Room* createRoom(int grid, int numberOfDoors){
+
+    Room* newRoom;
     newRoom = malloc(sizeof(Room));
     newRoom->numberOfDoors = numberOfDoors;
 
-    switch (grid)
-    {
+    switch (grid){
+
         case 0:
             newRoom->position.x = 0;
             newRoom->position.y = 0;
@@ -36,7 +35,6 @@ Room * createRoom(int grid, int numberOfDoors)
             newRoom->position.x = 66;
             newRoom->position.y = 14;
             break;
-
     }
 
     newRoom->height = rand() % 6 + 4; /* max size 9 */
@@ -46,10 +44,10 @@ Room * createRoom(int grid, int numberOfDoors)
     newRoom->position.x += rand() % (30 - newRoom->width) + 1;
     newRoom->position.y += rand() % (10 - newRoom->height) + 1;
 
-    newRoom->doors = malloc(sizeof(Door *) * numberOfDoors);
+    newRoom->doors = malloc(sizeof(Door*) * numberOfDoors);
 
-    for (i = 0; i < numberOfDoors; i++)
-    {
+    for (int i = 0; i < numberOfDoors; i++){
+
         newRoom->doors[i] = malloc(sizeof(Door));
         newRoom->doors[i]->connected = 0;
     }
@@ -73,28 +71,28 @@ Room * createRoom(int grid, int numberOfDoors)
     return newRoom;
 }
 
-int drawRoom(Room * room)
-{
+int drawRoom(Room* room){
+
     int x;
     int y;
 
     /* draw top and bottom */
-    for (x = room->position.x; x < room->position.x + room->width; x++)
-    {
+    for (x = room->position.x; x < room->position.x + room->width; x++){
+
         mvprintw(room->position.y, x, "-"); /* top */
         mvprintw(room->position.y + room->height - 1, x, "-"); /* bottom */
     }
 
     /* draw floors and side walls */
-    for (y = room->position.y + 1; y < room->position.y + room->height - 1; y++)
-    {
+    for (y = room->position.y + 1; y < room->position.y + room->height - 1; y++){
+
         /* draw side walls */
         mvprintw(y, room->position.x, "|");
         mvprintw(y, room->position.x + room->width - 1, "|");
 
         /* draw floors */
-        for (x = room->position.x + 1; x <room->position.x + room->width - 1; x++)
-        {
+        for (x = room->position.x + 1; x <room->position.x + room->width - 1; x++){
+
             mvprintw(y, x, ".");
         }
     }
@@ -109,16 +107,16 @@ int drawRoom(Room * room)
 }
 
 
-void placePlayer(Room ** rooms, Player * user)
-{
+void placePlayer(Room** rooms, Player* user){
+
     user->position->x = rooms[3]->position.x + 1;
     user->position->y = rooms[3]->position.y + 1;
 }
 
 
 
-void setStartingPosition(Monster * monster, Room * room)
-{
+void setStartingPosition(Monster* monster, Room* room){
+
     monster->position->x = (rand() % (room->width - 2)) + room->position.x + 1;
     monster->position->y = (rand() % (room->height - 2)) + room->position.y + 1;
 }

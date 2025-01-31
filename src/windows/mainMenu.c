@@ -5,13 +5,11 @@
 
 void closeMenu(int numberItems, MENU* menu, ITEM** items){
     
-    int i;
     unpost_menu(menu);
     free_menu(menu);
     for(int i = 0; i < numberItems; i++){
         free_item(items[i]);
     }
-
 }
 
 
@@ -51,10 +49,6 @@ int mainMenu(int numberItems, char* choices[]){
                 value = item_index(current);
                 closeMenu(numberItems, menu, items);
                 return value;
-
         }
     }
-
-
-
 }

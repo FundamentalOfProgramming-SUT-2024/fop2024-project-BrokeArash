@@ -3,6 +3,6 @@
 
 enum {START_GAME, QUIT_GAME};
 
-int mainMenu(int numberItems, char * choices[]);
+int mainMenu(int numberItems, char* choices[]);
 
 #endif

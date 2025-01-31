@@ -4,8 +4,7 @@
 MAX_HEIGHT = 25;
 MAX_WIDTH = 100;
 
-void screenSetUp()
-{
+void screenSetUp(){
 
     initscr();
     noecho();
@@ -14,6 +13,7 @@ void screenSetUp()
 
     srand(time(NULL));
 }
+
 
 void printGameHub(Level * level){
     mvprintw(25, 0, "    Level: %d", level->level);

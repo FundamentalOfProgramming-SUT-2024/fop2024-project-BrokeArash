@@ -4,8 +4,8 @@
 #include "position.h"
 
 
-typedef struct Door
-{
+typedef struct Door{
+    
     Position position;
     int connected;
 } Door;

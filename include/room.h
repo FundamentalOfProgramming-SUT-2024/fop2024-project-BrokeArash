@@ -8,25 +8,25 @@
 
 
 
-typedef struct Room
-{
+typedef struct Room{
+    
     Position position;
     int height;
     int width;
 
-    struct Door ** doors;
+    struct Door** doors;
     int numberOfDoors;
     // Monster ** monsters;
     // Item ** items;
 } Room;
 
 /* room functions */
-Room * createRoom(int grid, int numberOfDoors);
-int drawRoom(Room * room);
+Room* createRoom(int grid, int numberOfDoors);
+int drawRoom(Room* room);
 
 
-void placePlayer(Room ** rooms, Player * user);
-void setStartingPosition(Monster * monster, Room * room);
+void placePlayer(Room** rooms, Player* user);
+void setStartingPosition(Monster* monster, Room* room);
 
 
 

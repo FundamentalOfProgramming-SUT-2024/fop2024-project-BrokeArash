@@ -6,8 +6,8 @@
 
 extern int MAX_ITEMS;
 
-typedef struct Player
-{
+typedef struct Player{
+
     Position * position;
     int health;
     int attack;
@@ -17,13 +17,14 @@ typedef struct Player
     int numberItems;
     // Room * room;
     Item** items;
+    
 } Player;
 
 /* player functions */
-Player * playerSetUp();
-Position * handleInput(int input, Player * user);
-void playerMove(Position * newPosition, Player * user, char ** level);
-void drawPlayer(Player * player);
+Player* playerSetUp();
+Position* handleInput(int input, Player* user);
+void playerMove(Position* newPosition, Player* user, char** level);
+void drawPlayer(Player* player);
 
 
 #endif

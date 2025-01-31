@@ -3,13 +3,13 @@
 
 #include "level.h"
 
-typedef struct Game
-{
-    struct Level * levels[10];
+typedef struct Game{
+
+    struct Level* levels[10];
     int currentLevel;
 } Game;
 
-void render(Game * game);
-void gameLoop(Game * game);
+void render(Game* game);
+void gameLoop(Game* game);
 
 #endif
