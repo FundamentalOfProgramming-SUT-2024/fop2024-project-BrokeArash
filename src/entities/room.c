@@ -4,7 +4,10 @@
 Room* createRoom(int grid, int numberOfDoors){
 
     Room* newRoom;
+    Stair stair;
+
     newRoom = malloc(sizeof(Room));
+    newRoom->stair = malloc(sizeof(Stair));
     newRoom->numberOfDoors = numberOfDoors;
 
     switch (grid){
@@ -60,6 +63,12 @@ Room* createRoom(int grid, int numberOfDoors){
     newRoom->doors[1]->position.y = rand() % (newRoom->height - 2) + newRoom->position.y + 1;
     newRoom->doors[1]->position.x = newRoom->position.x;
 
+    if(grid == 5){
+
+        newRoom->stair->position.y = rand()% (newRoom->height - 2) + newRoom->position.y+1;
+        newRoom->stair->position.x = rand()% (newRoom->width - 2) + newRoom->position.x+1;  
+    }
+
     /* bottom door */
     // newRoom->doors[2]->position.x = rand() % (newRoom->width - 2) + newRoom->position.x + 1;
     // newRoom->doors[2]->position.y = newRoom->position.y + newRoom->height - 1;
@@ -102,6 +111,8 @@ int drawRoom(Room* room){
     mvprintw(room->doors[1]->position.y, room->doors[1]->position.x, "+");
     // mvprintw(room->doors[2]->position.y, room->doors[2]->position.x, "+");
     // mvprintw(room->doors[3]->position.y, room->doors[3]->position.x, "+");
+
+    mvprintw(room->stair->position.y, room->stair->position.x, "$");
 
     return 1;
 }

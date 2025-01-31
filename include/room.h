@@ -9,16 +9,23 @@
 
 
 typedef struct Room{
-    
+
     Position position;
     int height;
     int width;
-
+    struct Stair* stair;
     struct Door** doors;
     int numberOfDoors;
     // Monster ** monsters;
     // Item ** items;
 } Room;
+
+typedef struct Stair{
+    
+    Position position;
+} Stair;
+
+
 
 /* room functions */
 Room* createRoom(int grid, int numberOfDoors);

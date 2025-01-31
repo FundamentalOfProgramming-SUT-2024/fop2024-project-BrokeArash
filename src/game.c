@@ -24,6 +24,25 @@ void gameLoop(Game* game){
         game->currentLevel++;
     }
 
+    // if (game->currentLevel == 1){
+
+    //     game->levels[game->currentLevel] = createLevel(2);
+    //     game->currentLevel++;
+    // }
+
+    // if (game->currentLevel == 2){
+
+    //     game->levels[game->currentLevel] = createLevel(3);
+    //     game->currentLevel++;
+    // }
+
+    // if (game->currentLevel == 3){
+
+    //     game->levels[game->currentLevel] = createLevel(4);
+    //     game->currentLevel++;
+    // }
+
+
     level = game->levels[game->currentLevel - 1];
 
     /* main game loop */
@@ -46,6 +65,9 @@ void gameLoop(Game* game){
             if (level->user->health <= 0){
 
                 game->currentLevel = 0;
+                clear();
+                mvprintw(12, 30, "YOU DIED");
+                getch();
                 return;
             }
         }

@@ -11,7 +11,7 @@ Player* playerSetUp(){
     newPlayer->position = malloc(sizeof(Position));
     newPlayer->items = malloc(sizeof(Item*));
 
-    newPlayer->health = 100;
+    newPlayer->health = 10;
     newPlayer->attack = 1;
     newPlayer->gold = 0;
     newPlayer->exp = 0;
