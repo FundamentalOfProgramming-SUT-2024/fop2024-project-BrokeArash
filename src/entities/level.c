@@ -2,10 +2,6 @@
 #include "level.h"
 #include "utils.h"
 
-
-
-
-
 Level* createLevel(int level){
 
     Level* newLevel;
@@ -129,9 +125,11 @@ void checkPostion(Position* newPosition, Level* level){
         case '+':
             playerMove(newPosition, user, level->tiles);
             break;
-        case 'X':
+        case 'D':
+        case 'F':
         case 'G':
-        case 'T':
+        case 'S':
+        case 'U':
             combat(user, getMonsterAt(newPosition, level->monsters), 1);
         default:
             break;
