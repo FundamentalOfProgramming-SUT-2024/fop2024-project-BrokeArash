@@ -1,6 +1,17 @@
 #include "rogue.h"
+#include "level.h"
+#include "utils.h"
 
 
+
+// typedef struct Level
+// {
+//     char ** tiles;
+//     int numberOfRooms;
+//     struct Room ** rooms;
+//     struct Monster ** monsters;
+//     int numberOfMonsters;
+// } Level;
 
 
 Level * createLevel(int level)
@@ -10,7 +21,7 @@ Level * createLevel(int level)
 
     newLevel->level = level;
     newLevel->numberOfRooms = 6;
-    newLevel->rooms = roomSetUp();
+    newLevel->rooms = roomsSetUp();
     connectDoors(newLevel);
     newLevel->tiles = saveLevelPositions();
 
@@ -22,7 +33,29 @@ Level * createLevel(int level)
     return newLevel;
 }
 
-Room ** roomSetUp()
+void drawLevel(Level * level)
+{
+    int x, y, i;
+
+    // printing tiles
+    for (y = 0; y < MAX_HEIGHT; y++)
+    {
+        for (x = 0; x < MAX_WIDTH; x++)
+        {
+            mvaddch(y, x, level->tiles[y][x]);
+        }
+    }
+
+    // print monsters
+    for (i = 0; i < level->numberOfMonsters; i++)
+    {
+        drawMonster(level->monsters[i]);
+    }
+
+    drawPlayer(level->user);
+}
+
+Room ** roomsSetUp()
 {
     int x;
     Room ** rooms;
@@ -99,4 +132,66 @@ char ** saveLevelPositions()
     }
 
     return positions;
+}
+
+
+/* check what is at next position */
+void checkPostion(Position * newPosition, Level * level)
+{
+    Player * user;
+    user = level->user;
+    switch (mvinch(newPosition->y, newPosition->x))
+    {
+        case '.':
+        case '#':
+        case '+':
+            playerMove(newPosition, user, level->tiles);
+            break;
+        case 'X':
+        case 'G':
+        case 'T':
+            combat(user, getMonsterAt(newPosition, level->monsters), 1);
+        default:
+            break;
+    }
+
+}
+
+
+
+void moveMonsters(Level * level)
+{
+    int x;
+    for (x = 0; x < level->numberOfMonsters; x++)
+    {
+        if (level->monsters[x]->alive == 0)
+            continue;
+
+        if (level->monsters[x]->pathfinding == 1)
+        {
+            pathfindingRandom(level->monsters[x]->position);
+        } else
+        {
+            pathfindingSeek(level->monsters[x]->position, level->user->position);
+        }
+    }
+
+}
+
+
+void addMonsters(Level* level)
+{
+    int x;
+    level->monsters = malloc(sizeof(Monster *)* 6);
+    level->numberOfMonsters = 0;
+
+    for (x = 0; x < level->numberOfRooms; x++)
+    {
+        if ((rand() % 2) == 0)
+        {
+            level->monsters[level->numberOfMonsters] = selectMonster(level->level);
+            setStartingPosition(level->monsters[level->numberOfMonsters], level->rooms[x]);
+            level->numberOfMonsters++;
+        }
+    }
 }

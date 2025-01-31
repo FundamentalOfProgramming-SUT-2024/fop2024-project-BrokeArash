@@ -8,7 +8,7 @@ void addPositionYX(int ** frontier, int frontierCount, int y, int x)
 }
 
 
-int checkposition(int y, int x)
+int checkPosition(int y, int x)
 {
     char temp = mvinch(y, x);
 
@@ -21,7 +21,7 @@ int checkposition(int y, int x)
 int addNeighbors(int ** frontier, int frontierCount, int *** cameFrom, int y, int x)
 {
     // north
-    if (y > 0 && cameFrom[y - 1][x][0] < 0 && checkposition(y - 1, x))
+    if (y > 0 && cameFrom[y - 1][x][0] < 0 && checkPosition(y - 1, x))
     {
         addPositionYX(frontier, frontierCount, y - 1, x);
         frontierCount++;
@@ -30,7 +30,7 @@ int addNeighbors(int ** frontier, int frontierCount, int *** cameFrom, int y, in
     }
 
     // south
-    if (y < (MAX_HEIGHT - 1) && cameFrom[y + 1][x][0] < 0 && checkposition(y + 1, x))
+    if (y < (MAX_HEIGHT - 1) && cameFrom[y + 1][x][0] < 0 && checkPosition(y + 1, x))
     {
         addPositionYX(frontier, frontierCount, y + 1, x);
         frontierCount++;
@@ -39,7 +39,7 @@ int addNeighbors(int ** frontier, int frontierCount, int *** cameFrom, int y, in
     }
 
     // east
-    if (x < (MAX_WIDTH - 1) && cameFrom[y][x + 1][0] < 0 && checkposition(y, x + 1))
+    if (x < (MAX_WIDTH - 1) && cameFrom[y][x + 1][0] < 0 && checkPosition(y, x + 1))
     {
         addPositionYX(frontier, frontierCount, y, x + 1);
         frontierCount++;
@@ -48,7 +48,7 @@ int addNeighbors(int ** frontier, int frontierCount, int *** cameFrom, int y, in
     }
 
     // west
-    if (x > 0 && cameFrom[y][x - 1][0] < 0 && checkposition(y, x - 1))
+    if (x > 0 && cameFrom[y][x - 1][0] < 0 && checkPosition(y, x - 1))
     {
         addPositionYX(frontier, frontierCount, y, x - 1);
         frontierCount++;
