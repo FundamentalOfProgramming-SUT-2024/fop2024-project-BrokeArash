@@ -6,8 +6,17 @@
 Monster* selectMonster(int level){
 
     int monster;
-    
-    monster = (rand() % 5) + 1;
+    switch(level){
+
+        case 1:
+        case 2:
+            monster = (rand() % 3) + 1;
+        break;
+
+        case 3:
+        case 4:
+            monster = (rand() % 5) + 1;
+    }
 
     /*
 
@@ -47,11 +56,11 @@ Monster* selectMonster(int level){
         case 2: /* Fire */
             return createMonster('F', 10, 2, 1, 1, 2);
         case 3: /* Giant */
-            return createMonster('G', 15, 3, 1, 1, 1);
+            return createMonster('G', 15, 3, 1, 1, 2);
         case 4: /* Snake */
-            return createMonster('S', 20, 5, 1, 1, 1);
+            return createMonster('S', 20, 5, 1, 1, 2);
         case 5: /* Undead */
-            return createMonster('U', 30, 8, 1, 1, 1);
+            return createMonster('U', 30, 8, 1, 1, 2);
     }
 
 

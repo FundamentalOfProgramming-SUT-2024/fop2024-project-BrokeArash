@@ -73,7 +73,7 @@ void connectDoors(Level* level){
 
             count = 0;
 
-            while (count < 2){
+            while (count < 10){
 
                 randomRoom = rand() % level->numberOfRooms;
                 randomDoor = rand() % level->rooms[randomRoom]->numberOfDoors;
@@ -122,8 +122,11 @@ void checkPostion(Position* newPosition, Level* level){
 
         case '.':
         case '#':
-        case '+':
             playerMove(newPosition, user, level->tiles);
+            break;
+
+        case '+':
+                playerMove(newPosition, user, level->tiles);
             break;
         case 'D':
         case 'F':

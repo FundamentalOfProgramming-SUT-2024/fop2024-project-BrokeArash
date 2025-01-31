@@ -16,7 +16,7 @@ void screenSetUp(){
 
 
 void printGameHub(Level * level){
-    mvprintw(25, 0, "    Level: %d", level->level);
+    mvprintw(27, 0, "    Level: %d", level->level);
     printw("    Gold: %d", level->user->gold);
     printw("    Hp: %d(%d)", level->user->health, level->user->maxHealth);
     printw("    Attack: %d", level->user->attack);
@@ -25,7 +25,7 @@ void printGameHub(Level * level){
 }
 
 void printInventory(Player* player){
-    mvprintw(26, 0, "    Inventory: ");
+    mvprintw(29, 0, "    Inventory: ");
     for(int i = 0; i < player->numberItems; i++){
         printw(player->items[i]->string);
     }

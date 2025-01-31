@@ -10,35 +10,35 @@ Room* createRoom(int grid, int numberOfDoors){
     switch (grid){
 
         case 0:
-            newRoom->position.x = 0;
-            newRoom->position.y = 0;
+            newRoom->position.x = rand()% 12 + 0;
+            newRoom->position.y = rand()% 3 + 0;
             break;
         case 1:
-            newRoom->position.x = 33;
-            newRoom->position.y = 0;
+            newRoom->position.x = rand()% 10 + 33;
+            newRoom->position.y = rand()% 3 + 0;
             break;
 
         case 2:
-            newRoom->position.x = 66;
-            newRoom->position.y = 0;
+            newRoom->position.x = rand()% 10 + 66;
+            newRoom->position.y = rand()% 3 + 0;
             break;
         case 3:
-            newRoom->position.x = 0;
-            newRoom->position.y = 14;
+            newRoom->position.x = rand()% 10 + 0;
+            newRoom->position.y = rand()% 3 + 14;
             break;
 
         case 4:
-            newRoom->position.x = 33;
-            newRoom->position.y = 14;
+            newRoom->position.x = rand()% 10 + 33;
+            newRoom->position.y = rand()% 3 + 14;
             break;
         case 5:
-            newRoom->position.x = 66;
-            newRoom->position.y = 14;
+            newRoom->position.x = rand()% 10 + 66;
+            newRoom->position.y = rand()% 3 + 14;
             break;
     }
 
-    newRoom->height = rand() % 6 + 4; /* max size 9 */
-    newRoom->width = rand() % 14 + 4; /* max size 17 */
+    newRoom->height = rand() % 3 + 6; /* max size 9 */
+    newRoom->width = rand() % 12 + 6; /* max size 17 */
 
     /* offset */
     newRoom->position.x += rand() % (30 - newRoom->width) + 1;
