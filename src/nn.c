@@ -77,20 +77,20 @@ void drawlogo() {
         mvprintw(i + margin_top + 1, margin_left + 105,"%s", name2[i]);
     }
 
-    int loading_bar_width = max_x - margin_left - margin_right - 103;
+    int loading_bar_width = max_x - margin_left - margin_right - 127;
     int loading_bar_pos_y = margin_top + 1 + 23+ max_y/5;
 
     int progress = 0;
 
     for (progress = 0; progress <= loading_bar_width; progress++) {
-        mvprintw(loading_bar_pos_y, margin_left + 50,"%s", "[");
+        mvprintw(loading_bar_pos_y, margin_left + 57,"%s", "[");
         for (int i = 0; i < progress; i++) {
-            mvprintw(loading_bar_pos_y, margin_left + 51 + i,"%s", "#");
+            mvprintw(loading_bar_pos_y, margin_left + 58 + i,"%s", "#");
         }
         for (int i = progress; i < loading_bar_width; i++) {
-            mvprintw(loading_bar_pos_y, margin_left + 51 + i,"%s", " ");
+            mvprintw(loading_bar_pos_y, margin_left + 58 + i,"%s", " ");
         }
-        mvprintw(loading_bar_pos_y, margin_left + 51 + loading_bar_width,"%s", "]");
+        mvprintw(loading_bar_pos_y, margin_left + 58 + loading_bar_width,"%s", "]");
 
         refresh();
 
@@ -180,20 +180,26 @@ void createUser() {
             case 0:  // USERNAME
                 echo();  // Enable echoing (if needed)
                 mvscanw(0, 10, "%99s", username);  // Read username (limit to 99 characters)
-                FILE* output = fopen("user.txt", "a");
-                fprintf(output, username);
-                fclose(output);
+                FILE* output1 = fopen("user.txt", "a");
+                fprintf(output1, username);
+                fclose(output1);
 
                 break;
 
             case 1:  // PASSWORD
-                echo();  // Enable echoing (optional: consider disabling echo for passwords)
-                mvscanw(1, 10, "%99s", password);  // Read password (limit to 99 characters)
+                echo();  // Enable echoing (if needed)
+                mvscanw(1, 10, "%99s", password);  // Read username (limit to 99 characters)
+                FILE* output2 = fopen("user.txt", "a");
+                fprintf(output2, password);
+                fclose(output2);  // Read password (limit to 99 characters)
                 break;
 
             case 2:  // EMAIL
-                echo();  // Enable echoing
-                mvscanw(2, 10, "%99s", email);  // Read email (limit to 99 characters)
+                echo();  // Enable echoing (if needed)
+                mvscanw(2, 10, "%99s", email);  // Read username (limit to 99 characters)
+                FILE* output3 = fopen("user.txt", "a");
+                fprintf(output3, email);
+                fclose(output3);
                 break;
 
             case 3:  // SAVE
@@ -204,8 +210,38 @@ void createUser() {
 }
 
 
+void login(){
+    int choice;
+    char* choices[] = {"UserName", "Password", "Submit", "Back"};
 
-void startLoop() {
+
+    while (1) {
+        choice = mainMenu(4, choices);
+
+        switch (choice) {
+            case USER:
+                echo();
+                mvscanw(0, 10, "%99s", username);
+                break;
+
+            case PASS:
+                echo();
+                mvscanw(0, 10, "%99s", password);
+                
+                break;
+
+            case SUBMIT:
+                menuLoop();
+                break;
+            case BACK:
+                return;
+        }
+    }
+}
+
+
+
+void startLoop(){
     int choice;
     char* choices[] = {"SignUp", "LogIn", "Exit"};
 
@@ -214,19 +250,19 @@ void startLoop() {
     }
 
     while (1) {
-        choice = mainMenu(3, choices);  // Main menu with 3 options
+        choice = mainMenu(3, choices);
 
         switch (choice) {
             case SIGNUP:
-                createUser();  // Calls the createUser function to get user info
+                createUser();
                 break;
 
             case LOGIN:
-                menuLoop();  // Calls the login functionality
+                login();
                 break;
 
             case EXIT:
-                return;  // Exit the program
+                return;
         }
     }
 }
