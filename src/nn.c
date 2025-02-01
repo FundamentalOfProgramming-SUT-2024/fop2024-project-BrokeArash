@@ -113,7 +113,6 @@ void drawlogo() {
         blink_count ++;
     }
 
-    clear();
 }
 
 const char* logo1[] = {
@@ -431,6 +430,8 @@ int main() {
 
     screenSetUp();
     drawlogo();
+    clear();
+    nodelay(stdscr, FALSE);
     startLoop();
     endwin();
 
