@@ -5,8 +5,9 @@
 #include "player.h"
 #include "position.h"
 #include "door.h"
+#include "food.h"
 
-
+typedef struct Food Food;
 
 typedef struct Room{
 
@@ -34,6 +35,7 @@ int drawRoom(Room* room);
 
 void placePlayer(Room** rooms, Player* user);
 void setStartingPosition(Monster* monster, Room* room);
+void setStartingPosition2(Food* food, Room* room);
 
 
 

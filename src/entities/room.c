@@ -1,5 +1,6 @@
 #include "rogue.h"
 #include "room.h"
+#include "food.h"
 
 Room* createRoom(int grid, int numberOfDoors){
 
@@ -131,4 +132,10 @@ void setStartingPosition(Monster* monster, Room* room){
 
     monster->position->x = (rand() % (room->width - 2)) + room->position.x + 1;
     monster->position->y = (rand() % (room->height - 2)) + room->position.y + 1;
+}
+
+void setStartingPosition2(Food* food, Room* room){
+
+    food->position->x = (rand() % (room->width - 2)) + room->position.x + 1;
+    food->position->y = (rand() % (room->height - 2)) + room->position.y + 1;
 }

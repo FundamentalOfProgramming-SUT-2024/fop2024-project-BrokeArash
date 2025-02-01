@@ -1,11 +1,11 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-
 #include "position.h"
 #include "monster.h"
 #include "player.h"
 #include "room.h"
+#include "food.h"
 
 
 typedef struct Level{
@@ -17,6 +17,8 @@ typedef struct Level{
     struct Monster** monsters;
     int numberOfMonsters;
     struct Player* user;
+    struct Food** food;
+    int numberOfFood;
 
 } Level;
 
@@ -24,11 +26,12 @@ void drawLevel(Level* level);
 
 void addMonsters(Level* level);
 void moveMonsters(Level* level);
+void addFood(Level* level);
 
 
 /* level/map functions */
 Level* createLevel();
-Room** roomsSetUp();
+struct Room** roomsSetUp();
 char** saveLevelPositions();
 void connectDoors(Level* level);
 

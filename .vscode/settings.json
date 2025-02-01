@@ -4,7 +4,9 @@
         "rogue.h": "c",
         "utils.h": "c",
         "level.h": "c",
-        "game.h": "c"
+        "game.h": "c",
+        "food.h": "c",
+        "position.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

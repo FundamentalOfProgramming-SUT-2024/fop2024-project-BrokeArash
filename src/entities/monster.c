@@ -8,36 +8,6 @@ Monster* selectMonster(int level){
     int monster;
     monster = (rand() % 5) + 1;
     
-    /*
-
-1 Spider
-    symbol: X
-    levels: 1-3
-    health: 2
-    attack: 1
-    speed: 1
-    defence: 1
-    pathfinding: 1 (random)
-
-2 Goblin
-    symbol: G
-    levels: 1-5
-    health: 5
-    attack: 3
-    speed: 1
-    defence: 1
-    pathfinding: 2 (seeking)
-
-3 Troll
-    symbol: T
-    levels: 4-6
-    health: 15
-    attack: 5
-    speed: 1
-    defence: 1
-    pathfinding: 1 (random)
-
- */
 
     switch (monster){
 

@@ -1,6 +1,7 @@
 #include "rogue.h"
 #include "level.h"
 #include "utils.h"
+#include "food.h"
 
 Level* createLevel(int level){
 
@@ -17,6 +18,8 @@ Level* createLevel(int level){
     placePlayer(newLevel->rooms, newLevel->user);
 
     addMonsters(newLevel);
+    addFood(newLevel);
+    
 
     return newLevel;
 }
@@ -37,6 +40,13 @@ void drawLevel(Level* level){
     for (int i = 0; i < level->numberOfMonsters; i++){
 
         drawMonster(level->monsters[i]);
+        
+    }
+
+    for (int i = 0; i < level->numberOfFood; i++){
+
+        drawFood(level->food[i]);
+        
     }
 
     drawPlayer(level->user);
@@ -180,6 +190,23 @@ void addMonsters(Level* level){
             level->monsters[level->numberOfMonsters] = selectMonster(level->level);
             setStartingPosition(level->monsters[level->numberOfMonsters], level->rooms[x]);
             level->numberOfMonsters++;
+
+        }
+    }
+}
+
+void addFood(Level* level){
+
+    level->food = malloc(sizeof(Food*)* 15);
+    level->numberOfFood = 0;
+
+    for (int x = 0; x < (level->numberOfRooms); x++){
+
+        if ((rand() % 2) == 0){
+
+            level->food[level->numberOfFood] = selectFood(level);
+            setStartingPosition2(level->food[level->numberOfFood], level->rooms[x]);
+            level->numberOfFood++;
 
         }
     }
