@@ -49,7 +49,7 @@ Room** roomsSetUp(){
 
     for (int x = 0; x < 6; x++){
 
-        rooms[x] = createRoom(x, 2);
+        rooms[x] = createRoom(x, 3);
         drawRoom(rooms[x]);
     }
     //connectDoors(rooms[0]->doors[3], rooms[1]->doors[1]);
