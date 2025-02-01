@@ -233,6 +233,11 @@ void login(){
             case SUBMIT:
                 menuLoop();
                 break;
+
+            case GUEST:
+                menuLoop();
+                break;
+
             case BACK:
                 return;
         }
