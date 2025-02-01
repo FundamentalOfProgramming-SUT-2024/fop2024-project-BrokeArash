@@ -8,6 +8,8 @@ typedef struct Weapon{
     WeaponType type;
     int attack;
     int health;
+    char symbol;
+
 }Weapon;
 
 

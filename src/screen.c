@@ -1,8 +1,8 @@
 #include "rogue.h"
 #include "utils.h"
 
-MAX_HEIGHT = 25;
-MAX_WIDTH = 100;
+MAX_HEIGHT = 30;
+MAX_WIDTH = 120;
 
 void screenSetUp(){
 
@@ -16,7 +16,7 @@ void screenSetUp(){
 
 
 void printGameHub(Level * level){
-    mvprintw(27, 0, "    Level: %d", level->level);
+    mvprintw(31, 0, "    Level: %d", level->level);
     printw("    Gold: %d", level->user->gold);
     printw("    Hp: %d(%d)", level->user->health, level->user->maxHealth);
     printw("    Attack: %d", level->user->attack);
@@ -25,7 +25,7 @@ void printGameHub(Level * level){
 }
 
 void printInventory(Player* player){
-    mvprintw(29, 0, "    Inventory: ");
+    mvprintw(32, 0, "    Inventory: ");
     for(int i = 0; i < player->numberItems; i++){
         printw(player->items[i]->string);
     }

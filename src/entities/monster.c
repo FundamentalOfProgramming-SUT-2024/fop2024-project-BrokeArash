@@ -6,18 +6,8 @@
 Monster* selectMonster(int level){
 
     int monster;
-    switch(level){
-
-        case 1:
-        case 2:
-            monster = (rand() % 3) + 1;
-        break;
-
-        case 3:
-        case 4:
-            monster = (rand() % 5) + 1;
-    }
-
+    monster = (rand() % 5) + 1;
+    
     /*
 
 1 Spider

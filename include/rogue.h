@@ -5,11 +5,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 
 /************* Global Variables *************/
 extern int MAX_HEIGHT;
 extern int MAX_WIDTH;
+
 
 
 

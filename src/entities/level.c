@@ -159,16 +159,28 @@ void moveMonsters(Level* level){
 
 void addMonsters(Level* level){
 
-    level->monsters = malloc(sizeof(Monster*)* 6);
+    level->monsters = malloc(sizeof(Monster*)* 15);
     level->numberOfMonsters = 0;
 
-    for (int x = 0; x < level->numberOfRooms; x++){
+    for (int x = 0; x < (level->numberOfRooms); x++){
 
         if ((rand() % 2) == 0){
 
             level->monsters[level->numberOfMonsters] = selectMonster(level->level);
             setStartingPosition(level->monsters[level->numberOfMonsters], level->rooms[x]);
             level->numberOfMonsters++;
+
+        }
+    }
+
+    for (int x = 0; x < (level->numberOfRooms); x++){
+
+        if ((rand() % 2) == 0){
+
+            level->monsters[level->numberOfMonsters] = selectMonster(level->level);
+            setStartingPosition(level->monsters[level->numberOfMonsters], level->rooms[x]);
+            level->numberOfMonsters++;
+
         }
     }
 }

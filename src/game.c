@@ -14,6 +14,7 @@ void render(Game* game){
 
 void gameLoop(Game* game){
 
+    usleep(100000);
     int ch = '\0';
     Position* newPosition;
     Level* level;

@@ -21,5 +21,9 @@ typedef struct Item{
 }Item;
 
 Item* createMace(int attack, int health);
+Item* createDagger(int attack, int health);
+Item* createMagicWand(int attack, int health);
+Item* createNormalArrow(int attack, int health);
+Item* createSword(int attack, int health);
 
 #endif
