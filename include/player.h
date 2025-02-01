@@ -15,6 +15,7 @@ typedef struct Player{
     int maxHealth;
     int exp;
     int numberItems;
+    int color;
     // Room * room;
     Item** items;
     

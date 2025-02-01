@@ -2,8 +2,10 @@
 #include "mainMenu.h"
 #include "game.h"
 #include "utils.h"
+#include "player.h"
 
 char username[50], password[50], email[50];
+
 
 void drawlogo() {
     const char *logo[] = {
@@ -212,11 +214,11 @@ void createUser() {
 
 void login(){
     int choice;
-    char* choices[] = {"UserName", "Password", "Submit", "Back"};
+    char* choices[] = {"UserName", "Password", "Submit", "Guest", "Back"};
 
 
     while (1) {
-        choice = mainMenu(4, choices);
+        choice = mainMenu(5, choices);
 
         switch (choice) {
             case USER:
@@ -245,8 +247,8 @@ void login(){
 }
 
 
-
 void startLoop(){
+    
     int choice;
     char* choices[] = {"SignUp", "LogIn", "Exit"};
 
@@ -272,12 +274,116 @@ void startLoop(){
     }
 }
 
+void fcolor(){
+
+    int choice;
+    char* choices[] = {"RED", "BLUE", "GREEN", "Back"};
+
+    while (1) {
+        choice = mainMenu(4, choices);
+
+        switch (choice) {
+            case RED:
+                break;
+
+            case BLUE:
+                break;
+
+            case GREEN:
+                break;
+
+            case BACK2:
+                return;
+        }
+    }
+
+    
+}
+
+void diff(){
+
+    int choice;
+    char* choices[] = {"Easy", "noarmal", "Hard", "Back"};
+
+    while (1) {
+        choice = mainMenu(4, choices);
+
+        switch (choice) {
+            case EASY:
+                break;
+
+            case NORMAL:
+                break;
+
+            case HARD:
+                break;
+
+            case BACK3:
+                return;
+        }
+    }
+}
+
+void fmusic(){
+
+    int choice;
+    char* choices[] = {"MUSIC 1", "MUSIC 2", "MUSIC 3", "Back"};
+
+    while (1) {
+        choice = mainMenu(4, choices);
+
+        switch (choice) {
+            case MUSIC_1:
+                break;
+
+            case MUSIC_2:
+                break;
+
+            case MUSIC_3:
+                break;
+
+            case BACK4:
+                return;
+        }
+    }
+}
+
+
+
+void setting(){
+
+    int choice;
+    char* choices[] = {"Difficulty", "Music", "Color", "Back"};
+    
+
+    while (1) {
+        choice = mainMenu(4, choices);
+
+        switch (choice) {
+            case DIFFICULTY:
+                diff();
+                break;
+
+            case MUSIC:
+                fmusic();
+                break;
+
+            case COLOR:
+                fcolor();
+                break;
+
+            case BACK1:
+                return;
+        }
+    }
+}
+
 
 
 void menuLoop(){
 
     int choice;
-    char* choices[] = {"New Game", "Exit"};
+    char* choices[] = {"New Game","Resume Game", "Settings", "ScoreBoard", "Exit"};
 
     Game game;
     game.currentLevel = 0;
@@ -288,17 +394,32 @@ void menuLoop(){
 
     while(1){
 
+
         clear();
         refresh();
         
-        choice = mainMenu(2, choices);
+        choice = mainMenu(5, choices);
 
         switch(choice){
 
                 case START_GAME:
                     gameLoop(&game);
-                    clear();
                     break;
+
+                case RESUME_GAME:
+                    gameLoop(&game);
+                    break;
+                
+                case SETTING:
+                    setting();
+
+                    break;
+                
+                case SCOREBOARD:
+
+                    break;
+                
+                
                 case QUIT_GAME:
                     return;
 
