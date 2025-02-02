@@ -144,6 +144,14 @@ void checkPostion(Position* newPosition, Level* level){
         case 'S':
         case 'U':
             combat(user, getMonsterAt(newPosition, level->monsters), 1);
+            break;
+        case 'f':
+        case 's':
+        case 'm':
+            playerMove(newPosition, user, level->tiles);
+            break;
+        case '$':
+            user->exp += 100;
         default:
             break;
     }

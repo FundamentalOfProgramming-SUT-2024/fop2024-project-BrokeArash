@@ -327,21 +327,39 @@ void fmusic(){
 
     int choice;
     char* choices[] = {"MUSIC 1", "MUSIC 2", "MUSIC 3", "Back"};
+    int cha;
+    int is_paused = 0;
 
     while (1) {
-        choice = mainMenu(4, choices);
+    cha = getch();
+    if (cha == 'p' && !is_paused) {
 
+            // Pause the music
+            Mix_PauseMusic();
+            is_paused = 1;
+        } else if (cha == 'r' && is_paused) {
+            // Resume the music
+            Mix_ResumeMusic();
+            is_paused = 0;
+        }
+        refresh();
+        choice = mainMenu(4, choices);
         switch (choice) {
             case MUSIC_1:
+                Mix_Music *music1 = (Mix_Music *) play_music("music1.mp3");
+
                 break;
 
             case MUSIC_2:
+                Mix_Music *music2 = (Mix_Music *) play_music("music2.mp3");
                 break;
 
             case MUSIC_3:
+                Mix_Music *music3 = (Mix_Music *) play_music("music3.mp3");
                 break;
 
             case BACK4:
+                Mix_PauseMusic();
                 return;
         }
     }
@@ -356,6 +374,7 @@ void setting(){
     
 
     while (1) {
+    
         choice = mainMenu(4, choices);
 
         switch (choice) {

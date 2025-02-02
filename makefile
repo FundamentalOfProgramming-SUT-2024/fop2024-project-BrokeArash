@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -lmenu -lncurses -I$(IDIR)
+CFLAGS = -lmenu -lncurses -lSDL2 -lSDL2_mixer -I$(IDIR)
 
 IDIR = ./include/
 SRCDIR = ./src/

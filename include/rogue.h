@@ -7,9 +7,11 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+#include <pthread.h>
 
-
-/************* Global Variables *************/
+int play_music(const char *file_path);
 extern int MAX_HEIGHT;
 extern int MAX_WIDTH;
 

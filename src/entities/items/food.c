@@ -16,7 +16,7 @@ Food* selectFood(Level* level){
         case 1: /* Demon */
             return createFood('f', 5, 0, level->user);
         case 2: /* Fire */
-            return createFood('g', 10, 2, level->user);
+            return createFood('s', 10, 2, level->user);
         case 3: /* Giant */
             return createFood('m', 15, 2, level->user);
         case 4: /* Snake */

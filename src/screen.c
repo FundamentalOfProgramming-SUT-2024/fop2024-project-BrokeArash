@@ -30,3 +30,4 @@ void printInventory(Player* player){
         printw(player->items[i]->string);
     }
 }
+
